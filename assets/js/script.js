@@ -212,3 +212,23 @@ document.getElementById('year').textContent = new Date().getFullYear();
         }
     });
 });
+
+// Intersection Observer for Scroll Animations
+const observerOptions = {
+    threshold: 0.15 // Triggers when 15% of the element is visible
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Optional: stop observing once revealed
+            // observer.unobserve(entry.target); 
+        }
+    });
+}, observerOptions);
+
+// Apply observer to all reveal elements
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+});
