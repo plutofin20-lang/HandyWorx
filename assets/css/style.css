@@ -1,0 +1,626 @@
+/* --- 1. Variables & Themes --- */
+:root {
+    --bg-main: #ffffff;
+    --bg-secondary: #f9fafb;
+    --text-main: #000000;
+    --text-muted: #4b5563;
+    --border-color: #e5e7eb;
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --accent: #000000;
+    --accent-contrast: #ffffff;
+    --error: #ef4444;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-mode {
+    --bg-main: #000000;
+    --bg-secondary: #09090b;
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --nav-bg: rgba(0, 0, 0, 0.9);
+    --accent: #ffffff;
+    --accent-contrast: #000000;
+}
+
+/* --- 2. Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+section {
+    padding: 6rem 0;
+}
+
+/* --- 3. Navigation --- */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: var(--transition);
+    background-color: transparent;
+}
+
+nav.scrolled {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.logo-tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.theme-toggle, .mobile-menu-toggle {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem;
+}
+
+.mobile-nav {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu-link {
+    padding: 1rem 0;
+    text-decoration: none;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* --- 4. Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600') center/cover;
+    text-align: center;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+/* --- 5. Grid Layouts --- */
+/*.about-grid,*/ .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: start; /* Aligns content to the top of the columns */
+}
+
+.about .section-title {
+    text-align: center;
+    margin-bottom: 4rem; /* Generous space before the grid starts */
+    width: 100%;
+}
+
+.vision-mission {
+    margin-bottom: 3.5rem; /* Increased spacing between the two blocks */
+}
+
+.vision-mission:last-child {
+    margin-bottom: 0; /* Removes extra space from the bottom item */
+}
+
+.vision-mission h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.vision-mission p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Horizontal centering */
+    justify-content: center; /* Vertical centering */
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+
+.service-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.services-header {
+    text-align: center;
+    margin-bottom: 5rem; /* Increased padding to prevent animation overlap */
+}
+
+.services-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 1rem auto 0; /* Centers and adds top margin */
+    padding-bottom: 2rem; /* Buffer for the cards below */
+}
+
+.service-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    
+    /* Toggleable Background & Icon Colors */
+    background-color: var(--accent);         /* Dark in Light mode, Light in Dark mode */
+    color: var(--accent-contrast);           /* Contrast color for the SVG itself */
+    transition: var(--transition);
+}
+
+.service-icon-wrapper svg {
+    width: 32px;
+    height: 32px;
+    /* stroke: currentColor;  Matches the wrapper text color */
+}
+
+/* --- Contact Section Refinements --- */
+
+/* 1. Center the Header & Subtitle */
+.contact-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.contact-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0.5rem auto 0; /* Centers the paragraph itself */
+}
+
+/* 2. Contact Items (Icon + Text side-by-side) */
+.contact-item {
+    display: flex;
+    align-items: center; /* Vertically centers icon with text */
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-icon {
+    flex-shrink: 0;
+    color: var(--text-main);
+}
+
+.contact-item p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+/* 3. Minimalist Toggleable Button */
+.submit-button {
+    width: 100%;
+    padding: 1.25rem;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    font-family: inherit;
+    
+    /* Theme Toggle Logic */
+    background-color: var(--accent); /* Black in light, White in dark */
+    color: var(--accent-contrast);  /* White in light, Black in dark */
+    
+    transition: var(--transition);
+}
+
+.submit-button:hover {
+    opacity: 0.8;
+}
+
+/* Ensure form inputs also follow minimalist style */
+.contact-form-container input, 
+.contact-form-container select, 
+.contact-form-container textarea {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0; /* Minimalist look: only bottom border */
+}
+
+.contact-form-container input:focus, 
+.contact-form-container textarea:focus {
+    border-bottom-color: var(--text-main);
+}
+
+
+/* --- 6. Form Styling & Validation --- */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    transition: border-color 0.2s;
+}
+
+/* Form Validation States */
+input.error, select.error, textarea.error {
+    border-color: var(--error);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.8rem;
+    display: none; /* Hidden by default */
+    margin-top: 0.25rem;
+}
+
+.error-message.active {
+    display: block;
+}
+
+/* --- 7. Footer --- */
+.footer {
+    padding: 4rem 0 2rem;
+    background-color: var(--bg-main);
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* --- 8. Responsive Design --- */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-nav { display: flex; }
+    .hero-title { font-size: 2.5rem; }
+}
+
+/* --- Footer Fixes --- */
+.footer ul {
+    list-style: none; /* Removes bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.footer a {
+    text-decoration: none; /* Removes underlines */
+    color: inherit;        /* Removes default blue; uses parent text color */
+    transition: var(--transition);
+}
+
+.footer a:hover {
+    opacity: 0.7;          /* Subtle feedback on hover */
+}
+
+.footer-bottom {
+    text-align: center;    /* Centers the copyright text */
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    width: 100%;           /* Ensures it spans the full width to center correctly */
+}
+
+/* --- Parallax Section Refinement --- */
+.parallax {
+    height: 400px;
+    /* Using linear-gradient to ensure text remains readable over the image */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1600') fixed center/cover;
+    
+    /* Flexbox centering */
+    display: flex;
+    flex-direction: column; /* Stack H3 and P vertically */
+    align-items: center;    /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    
+    text-align: center;
+    color: #ffffff; /* Always white for contrast against the dark overlay */
+}
+
+.parallax-content {
+    padding: 0 1.5rem;
+    max-width: 800px;
+}
+
+.parallax h3 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.parallax p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* --- About Features Column (Option 2: Minimalist) --- */
+
+.about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Space between each feature item */
+    padding-top: 1rem; /* Slight offset to align with vision text */
+}
+
+.feature {
+    display: flex;
+    align-items: flex-start; /* Keeps icon at the top of the text block */
+    gap: 1.25rem;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    color: var(--accent); /* Toggleable: Black in light mode, White in dark */
+    margin-top: 0.25rem;   /* Fine-tuning vertical alignment with the header */
+    width: 28px;
+    height: 28px;
+    transition: var(--transition);
+}
+
+.feature h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.feature p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Subtle hover effect for the feature items */
+.feature:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+/* --- The Inversion Logic --- */
+
+/* Base state for the box (Light Mode appearance) */
+.inverted-box {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 3rem;
+    border-radius: 4px; /* Optional: slight rounding for a "card" look */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+/* Force children to follow the inverted theme */
+.inverted-box .feature h4 { color: #000000; }
+.inverted-box .feature p { color: #4b5563; } /* Muted grey for light theme */
+.inverted-box .feature-icon { color: #000000; }
+
+/* When the body is DARK, this box stays LIGHT (already defined above) */
+/* When the body is LIGHT, this box becomes DARK */
+body:not(.dark-mode) .inverted-box {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body:not(.dark-mode) .inverted-box .feature h4 { color: #ffffff; }
+body:not(.dark-mode) .inverted-box .feature p { color: #9ca3af; }
+body:not(.dark-mode) .inverted-box .feature-icon { color: #ffffff; }
+
+/* --- 8. Responsive Design --- */
+
+/* Tablets and smaller desktops (992px and down) */
+@media (max-width: 992px) {
+    .about-grid {
+        grid-template-columns: 1fr; /* Stack vision/mission on top of features */
+        gap: 3rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack contact info on top of form */
+        gap: 3rem;
+    }
+}
+
+/* Mobile Phones (768px and down) */
+@media (max-width: 768px) {
+    /* Navigation */
+    .nav-links { display: none; }
+    .mobile-nav { display: flex; }
+    
+    .nav-content { height: 70px; } /* Slightly shorter nav on mobile */
+    .mobile-menu { top: 70px; }
+
+    /* Typography */
+    section { padding: 4rem 0; }
+    
+    .hero-title { 
+        font-size: 2.5rem; 
+        padding: 0 1rem;
+    }
+    
+    .section-title { font-size: 2.2rem; }
+
+    /* About Section Fixes */
+    .inverted-box {
+        padding: 2rem 1.5rem; /* Reduce padding so box doesn't feel cramped */
+    }
+
+    /* Services Section */
+    .services-header { margin-bottom: 3rem; }
+    .services-grid {
+        grid-template-columns: 1fr; /* Single column for better readability */
+    }
+
+    /* Parallax Fix for Mobile */
+    .parallax {
+        height: 300px;
+        background-attachment: scroll; /* Fixed background often breaks on mobile browsers */
+    }
+
+    /* Contact Section */
+    .contact-info {
+        order: 2; /* Put contact details below the form on mobile */
+    }
+    .contact-form-container {
+        order: 1;
+    }
+}
+
+/* Extra Small Phones (480px and down) */
+@media (max-width: 480px) {
+    .logo-text { font-size: 1.2rem; }
+    
+    .cta-button {
+        width: 100%; /* Full width button for easier tapping */
+        text-align: center;
+    }
+}
