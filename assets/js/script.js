@@ -1,3 +1,6 @@
+const mainLogoIcon = document.getElementById('main-logo-icon');
+const favicon = document.getElementById('favicon');
+
 // Theme Toggle
 const body = document.body;
 const themeToggle = document.getElementById('theme-toggle');
@@ -16,6 +19,8 @@ if (currentTheme === 'light') {
     sunIcon.style.display = 'block';
     moonIconMobile.style.display = 'none';
     sunIconMobile.style.display = 'block';
+    mainLogoIcon.src = 'assets/img/logo-black.png';
+    favicon.href = 'assets/img/logo-black.png';
 }
 
 function toggleTheme() {
@@ -27,6 +32,8 @@ function toggleTheme() {
         moonIconMobile.style.display = 'none';
         sunIconMobile.style.display = 'block';
         localStorage.setItem('theme', 'light');
+        mainLogoIcon.src = 'assets/img/logo-black.png';
+        favicon.href = 'assets/img/logo-black.png';
     } else {
         body.classList.remove('light-mode');
         body.classList.add('dark-mode');
@@ -35,6 +42,8 @@ function toggleTheme() {
         moonIconMobile.style.display = 'block';
         sunIconMobile.style.display = 'none';
         localStorage.setItem('theme', 'dark');
+        mainLogoIcon.src = 'assets/img/logo-white.png';
+        favicon.href = 'assets/img/logo-white.png';
     }
 }
 
