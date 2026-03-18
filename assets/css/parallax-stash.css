@@ -1,0 +1,104 @@
+.parallax {
+    height: 400px;
+    /* Using linear-gradient to ensure text remains readable over the image */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1600') fixed center/cover;
+    
+    /* Flexbox centering */
+    display: flex;
+    flex-direction: column; /* Stack H3 and P vertically */
+    align-items: center;    /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    
+    text-align: center;
+    color: #ffffff; /* Always white for contrast against the dark overlay */
+}
+
+.parallax-content {
+    padding: 0 1.5rem;
+    max-width: 800px;
+}
+
+.parallax h3 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.parallax p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* --- Part Two ---*/
+/* --- Parallax Section Refinement --- */
+/* Replace your existing .parallax styles with this: */
+
+.parallax {
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    
+    /* DARK MODE: White background */
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+/* LIGHT MODE: Black background */
+body:not(.dark-mode) .parallax {
+    background-color: #000000;
+}
+
+/* Logo background layer */
+.parallax-logo-bg {
+    position: absolute;
+    inset: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15; /* Subtle watermark effect */
+    z-index: 0;
+    transition: opacity 0.3s ease;
+    
+    /* DARK MODE: Black logo on white bg */
+    background-image: url('assets/img/logo-black.png');
+}
+
+/* LIGHT MODE: White logo on black bg */
+body:not(.dark-mode) .parallax-logo-bg {
+    background-image: url('assets/img/logo-white.png');
+}
+
+.parallax-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 1.5rem;
+    max-width: 800px;
+}
+
+.parallax h3 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    
+    /* DARK MODE: Black text on white bg */
+    color: #000000;
+    transition: color 0.3s ease;
+}
+
+.parallax p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    
+    /* DARK MODE: Dark grey text on white bg */
+    color: #4b5563;
+    transition: color 0.3s ease;
+}
