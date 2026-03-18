@@ -6,6 +6,7 @@
     <meta name="description" content="The HandyWorx - Professional home and business services at your fingertips">
     <title>The HandyWorx | Professional Services at Your Fingertips</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/logo-white.png" id="favicon">
 </head>
 <body class="dark-mode">
     <!-- Navigation -->
@@ -14,8 +15,10 @@
             <div class="nav-content">
                 <div class="logo">
                     <img src="assets/img/logo-white.png" id="main-logo-icon" alt="Icon" class="nav-icon">
-                    <span class="logo-text">THE HANDYWORX</span>
-                    <span class="logo-tagline">LET'S DO IT!</span>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-text">THE HANDYWORX</span>
+                        <span class="logo-tagline">LET'S DO IT!</span>
+                    </div>
                 </div>
                 
                 <div class="nav-links">
@@ -141,7 +144,14 @@
     </section>
 
     <!-- Parallax Section -->
-    <section class="parallax">
+    <!-- <section class="parallax">
+        <div class="parallax-content">
+            <h3>Excellence in Every Service</h3>
+            <p>Your satisfaction is our commitment</p>
+        </div>
+    </section> -->
+    <section class="parallax" id="parallax-section">
+        <div class="parallax-logo-bg"></div>
         <div class="parallax-content">
             <h3>Excellence in Every Service</h3>
             <p>Your satisfaction is our commitment</p>
@@ -289,6 +299,19 @@
         </div>
     </section>
 
+    <!-- Partner Section -->
+    <section id="partner" class="partner-section">
+        <div class="container">
+            <div class="partner-content">
+                <h2 class="partner-title">Become a Service Partner</h2>
+                <p class="partner-subtitle">Join our network of trusted professionals and grow your business with us</p>
+                <button id="open-partner-modal" class="partner-cta-button">PARTNER WITH US</button>
+            </div>
+        </div>
+    </section>
+
+    
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -314,7 +337,7 @@
                         </svg>
                         <div>
                             <h4>Email</h4>
-                            <p>belo.maphutha@gmail.com</p>
+                            <p>kate@thehandyworx.co.za</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -384,7 +407,11 @@
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                             </svg>
                         </a>
-                        
+                        <a href="https://x.com/thehandyworx" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
                         <a href="https://www.instagram.com/chitjanadichaba/" aria-label="Instagram">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -413,7 +440,7 @@
                     <h4>Contact Info</h4>
                     <ul>
                         <li>083 346 2673</li>
-                        <li>belo.maphutha@gmail.com</li>
+                        <li>kate@thehandyworx.co.za</li>
                         <li>Johannesburg, Gauteng</li>
                     </ul>
                 </div>
@@ -425,5 +452,57 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+    <!-- Partner Modal -->
+    <div id="partner-modal" class="modal">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Partner Application</h3>
+                <button id="close-modal" class="modal-close" aria-label="Close modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-intro">Fill out the form below to apply as a service partner. We'll review your application and get back to you within 2-3 business days.</p>
+                
+                <form id="partner-form" class="partner-form">
+                    <div class="form-group">
+                        <label for="partner-contact-name">Contact Person Name *</label>
+                        <input type="text" id="partner-contact-name" name="contact_name" required>
+                        <span class="error-message" id="partner-contact-name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partner-business-name">Business Name *</label>
+                        <input type="text" id="partner-business-name" name="business_name" required>
+                        <span class="error-message" id="partner-business-name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partner-email">Email Address *</label>
+                        <input type="email" id="partner-email" name="email" required>
+                        <span class="error-message" id="partner-email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partner-phone">Contact Number *</label>
+                        <input type="tel" id="partner-phone" name="phone" required>
+                        <span class="error-message" id="partner-phone-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partner-description">Business Description *</label>
+                        <textarea id="partner-description" name="business_description" rows="4" placeholder="Tell us about your services and experience..." required></textarea>
+                        <span class="error-message" id="partner-description-error"></span>
+                    </div>
+
+                    <button type="submit" class="modal-submit-button">SUBMIT APPLICATION</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

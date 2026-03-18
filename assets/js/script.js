@@ -224,7 +224,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // Intersection Observer for Scroll Animations
 const observerOptions = {
-    threshold: 0.15 // Triggers when 15% of the element is visible
+    threshold: 0.05, // Changed from 0.15 - triggers earlier
+    rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -232,7 +233,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
             // Optional: stop observing once revealed
-            // observer.unobserve(entry.target); 
+            observer.unobserve(entry.target); 
         }
     });
 }, observerOptions);
@@ -241,3 +242,251 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
     observer.observe(el);
 });
+
+// ========================================
+// PARTNER MODAL FUNCTIONALITY - DEBUGGED
+// ========================================
+
+// Add this RIGHT AFTER the window loads to ensure elements exist
+document.addEventListener('DOMContentLoaded', function() {
+    
+    console.log('Modal script loaded'); // Debug message
+    
+    // Modal elements
+    const partnerModal = document.getElementById('partner-modal');
+    const openModalBtn = document.getElementById('open-partner-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const partnerForm = document.getElementById('partner-form');
+    
+    // Debug: Check if elements exist
+    console.log('Modal element:', partnerModal);
+    console.log('Open button:', openModalBtn);
+    console.log('Close button:', closeModalBtn);
+
+    // Form inputs
+    const partnerContactName = document.getElementById('partner-contact-name');
+    const partnerBusinessName = document.getElementById('partner-business-name');
+    const partnerEmail = document.getElementById('partner-email');
+    const partnerPhone = document.getElementById('partner-phone');
+    const partnerDescription = document.getElementById('partner-description');
+
+    // Error elements
+    const partnerContactNameError = document.getElementById('partner-contact-name-error');
+    const partnerBusinessNameError = document.getElementById('partner-business-name-error');
+    const partnerEmailError = document.getElementById('partner-email-error');
+    const partnerPhoneError = document.getElementById('partner-phone-error');
+    const partnerDescriptionError = document.getElementById('partner-description-error');
+
+    // Open modal
+    function openModal() {
+        console.log('Opening modal...'); // Debug
+        if (partnerModal) {
+            partnerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            console.log('Modal opened successfully');
+        } else {
+            console.error('Modal element not found!');
+        }
+    }
+
+    // Close modal
+    function closeModal() {
+        console.log('Closing modal...'); // Debug
+        if (partnerModal) {
+            partnerModal.classList.remove('active');
+            document.body.style.overflow = '';
+            resetPartnerForm();
+        }
+    }
+
+    // Reset form
+    function resetPartnerForm() {
+        if (partnerForm) {
+            partnerForm.reset();
+            
+            // Remove error states
+            [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
+                if (input) input.classList.remove('error');
+            });
+            
+            [partnerContactNameError, partnerBusinessNameError, partnerEmailError, partnerPhoneError, partnerDescriptionError].forEach(error => {
+                if (error) error.classList.remove('active');
+            });
+        }
+    }
+
+    // Event listeners for opening/closing modal
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Button clicked!'); // Debug
+            openModal();
+        });
+    } else {
+        console.error('Open modal button not found!');
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && partnerModal && partnerModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Email validation function (reuse existing one or define here)
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Validate partner form
+    function validatePartnerForm() {
+        let isValid = true;
+
+        // Reset errors
+        [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
+            if (input) input.classList.remove('error');
+        });
+        
+        [partnerContactNameError, partnerBusinessNameError, partnerEmailError, partnerPhoneError, partnerDescriptionError].forEach(error => {
+            if (error) error.classList.remove('active');
+        });
+
+        // Validate contact name
+        if (partnerContactName && partnerContactName.value.trim() === '') {
+            partnerContactName.classList.add('error');
+            if (partnerContactNameError) {
+                partnerContactNameError.textContent = 'Contact name is required';
+                partnerContactNameError.classList.add('active');
+            }
+            isValid = false;
+        }
+
+        // Validate business name
+        if (partnerBusinessName && partnerBusinessName.value.trim() === '') {
+            partnerBusinessName.classList.add('error');
+            if (partnerBusinessNameError) {
+                partnerBusinessNameError.textContent = 'Business name is required';
+                partnerBusinessNameError.classList.add('active');
+            }
+            isValid = false;
+        }
+
+        // Validate email
+        if (partnerEmail && partnerEmail.value.trim() === '') {
+            partnerEmail.classList.add('error');
+            if (partnerEmailError) {
+                partnerEmailError.textContent = 'Email is required';
+                partnerEmailError.classList.add('active');
+            }
+            isValid = false;
+        } else if (partnerEmail && !validateEmail(partnerEmail.value.trim())) {
+            partnerEmail.classList.add('error');
+            if (partnerEmailError) {
+                partnerEmailError.textContent = 'Email is invalid';
+                partnerEmailError.classList.add('active');
+            }
+            isValid = false;
+        }
+
+        // Validate phone
+        if (partnerPhone && partnerPhone.value.trim() === '') {
+            partnerPhone.classList.add('error');
+            if (partnerPhoneError) {
+                partnerPhoneError.textContent = 'Contact number is required';
+                partnerPhoneError.classList.add('active');
+            }
+            isValid = false;
+        }
+
+        // Validate description
+        if (partnerDescription && partnerDescription.value.trim() === '') {
+            partnerDescription.classList.add('error');
+            if (partnerDescriptionError) {
+                partnerDescriptionError.textContent = 'Business description is required';
+                partnerDescriptionError.classList.add('active');
+            }
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    // Handle form submission
+    if (partnerForm) {
+        partnerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!validatePartnerForm()) {
+                return;
+            }
+
+            // Prepare form data
+            const formData = {
+                contact_name: partnerContactName.value.trim(),
+                business_name: partnerBusinessName.value.trim(),
+                email: partnerEmail.value.trim(),
+                phone: partnerPhone.value.trim(),
+                business_description: partnerDescription.value.trim(),
+                form_type: 'Partner Application'
+            };
+
+            // Get submit button
+            const submitBtn = partnerForm.querySelector('.modal-submit-button');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                // Disable button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'SUBMITTING...';
+
+                // REPLACE THIS URL WITH YOUR ACTUAL FORMSPREE ENDPOINT
+                const response = await fetch('https://formspree.io/f/meerpvqv', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Thank you for your application! We will review it and get back to you within 2-3 business days.');
+                    closeModal();
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('There was an error submitting your application. Please try again or contact us directly.');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    }
+
+    // Remove error styling when user starts typing
+    [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => {
+                input.classList.remove('error');
+                const errorId = input.id + '-error';
+                const errorElement = document.getElementById(errorId);
+                if (errorElement) {
+                    errorElement.classList.remove('active');
+                }
+            });
+        }
+    });
+
+}); // End of DOMContentLoaded
