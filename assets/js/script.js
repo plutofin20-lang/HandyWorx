@@ -1,3 +1,7 @@
+// ========================================
+// THEME TOGGLE & INITIALIZATION
+// ========================================
+
 const mainLogoIcon = document.getElementById('main-logo-icon');
 const favicon = document.getElementById('favicon');
 
@@ -15,74 +19,82 @@ const currentTheme = localStorage.getItem('theme') || 'dark';
 if (currentTheme === 'light') {
     body.classList.remove('dark-mode');
     body.classList.add('light-mode');
-    moonIcon.style.display = 'none';
-    sunIcon.style.display = 'block';
-    moonIconMobile.style.display = 'none';
-    sunIconMobile.style.display = 'block';
-    mainLogoIcon.src = 'assets/img/logo-black.png';
-    favicon.href = 'assets/img/logo-black.png';
+    if (moonIcon) moonIcon.style.display = 'none';
+    if (sunIcon) sunIcon.style.display = 'block';
+    if (moonIconMobile) moonIconMobile.style.display = 'none';
+    if (sunIconMobile) sunIconMobile.style.display = 'block';
+    if (mainLogoIcon) mainLogoIcon.src = 'assets/img/logo-black.png';
+    if (favicon) favicon.href = 'assets/img/logo-black.png';
 }
 
 function toggleTheme() {
     if (body.classList.contains('dark-mode')) {
         body.classList.remove('dark-mode');
         body.classList.add('light-mode');
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-        moonIconMobile.style.display = 'none';
-        sunIconMobile.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIconMobile) moonIconMobile.style.display = 'none';
+        if (sunIconMobile) sunIconMobile.style.display = 'block';
         localStorage.setItem('theme', 'light');
-        mainLogoIcon.src = 'assets/img/logo-black.png';
-        favicon.href = 'assets/img/logo-black.png';
+        if (mainLogoIcon) mainLogoIcon.src = 'assets/img/logo-black.png';
+        if (favicon) favicon.href = 'assets/img/logo-black.png';
     } else {
         body.classList.remove('light-mode');
         body.classList.add('dark-mode');
-        moonIcon.style.display = 'block';
-        sunIcon.style.display = 'none';
-        moonIconMobile.style.display = 'block';
-        sunIconMobile.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIconMobile) moonIconMobile.style.display = 'block';
+        if (sunIconMobile) sunIconMobile.style.display = 'none';
         localStorage.setItem('theme', 'dark');
-        mainLogoIcon.src = 'assets/img/logo-white.png';
-        favicon.href = 'assets/img/logo-white.png';
+        if (mainLogoIcon) mainLogoIcon.src = 'assets/img/logo-white.png';
+        if (favicon) favicon.href = 'assets/img/logo-white.png';
     }
 }
 
-themeToggle.addEventListener('click', toggleTheme);
-mobileThemeToggle.addEventListener('click', toggleTheme);
+if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
 
-// Mobile Menu Toggle
+// ========================================
+// MOBILE MENU TOGGLE
+// ========================================
+
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 const menuIcon = document.getElementById('menu-icon');
 const closeIcon = document.getElementById('close-icon');
 
-mobileMenuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    if (mobileMenu.classList.contains('active')) {
-        menuIcon.style.display = 'none';
-        closeIcon.style.display = 'block';
-    } else {
-        menuIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
-    }
-});
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        if (mobileMenu.classList.contains('active')) {
+            menuIcon.style.display = 'none';
+            closeIcon.style.display = 'block';
+        } else {
+            menuIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+        }
+    });
+}
 
 // Close mobile menu when clicking on links
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 mobileMenuLinks.forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
-        menuIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
+        if (menuIcon) menuIcon.style.display = 'block';
+        if (closeIcon) closeIcon.style.display = 'none';
     });
 });
 
-// Smooth Scroll for Navigation Links
+// ========================================
+// SMOOTH SCROLL NAVIGATION
+// ========================================
+
 const navLinks = document.querySelectorAll('.nav-link, .mobile-menu-link, .cta-button');
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-        if (href.startsWith('#')) {
+        if (href && href.startsWith('#')) {
             e.preventDefault();
             const target = document.querySelector(href);
             if (target) {
@@ -96,7 +108,10 @@ navLinks.forEach(link => {
     });
 });
 
-// Navbar Scroll Effect
+// ========================================
+// NAVBAR SCROLL EFFECT
+// ========================================
+
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -106,151 +121,238 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Form Validation and Submission
-const submitButton = document.getElementById('submit-button');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const phoneInput = document.getElementById('phone');
-const serviceInput = document.getElementById('service');
-const messageInput = document.getElementById('message');
+// ========================================
+// COPYRIGHT YEAR
+// ========================================
 
-const nameError = document.getElementById('name-error');
-const emailError = document.getElementById('email-error');
-const phoneError = document.getElementById('phone-error');
-const serviceError = document.getElementById('service-error');
-const messageError = document.getElementById('message-error');
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+const yearElement = document.getElementById('year');
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
 }
 
-function validateForm() {
-    let isValid = true;
+// ========================================
+// SCROLL ANIMATIONS
+// ========================================
 
-    // Reset errors
-    nameInput.classList.remove('error');
-    emailInput.classList.remove('error');
-    phoneInput.classList.remove('error');
-    serviceInput.classList.remove('error');
-    messageInput.classList.remove('error');
-    
-    nameError.classList.remove('active');
-    emailError.classList.remove('active');
-    phoneError.classList.remove('active');
-    serviceError.classList.remove('active');
-    messageError.classList.remove('active');
-
-    // Validate name
-    if (nameInput.value.trim() === '') {
-        nameInput.classList.add('error');
-        nameError.textContent = 'Name is required';
-        nameError.classList.add('active');
-        isValid = false;
-    }
-
-    // Validate email
-    if (emailInput.value.trim() === '') {
-        emailInput.classList.add('error');
-        emailError.textContent = 'Email is required';
-        emailError.classList.add('active');
-        isValid = false;
-    } else if (!validateEmail(emailInput.value.trim())) {
-        emailInput.classList.add('error');
-        emailError.textContent = 'Email is invalid';
-        emailError.classList.add('active');
-        isValid = false;
-    }
-
-    // Validate phone
-    if (phoneInput.value.trim() === '') {
-        phoneInput.classList.add('error');
-        phoneError.textContent = 'Phone is required';
-        phoneError.classList.add('active');
-        isValid = false;
-    }
-
-    // Validate service
-    if (serviceInput.value === '') {
-        serviceInput.classList.add('error');
-        serviceError.textContent = 'Please select a service';
-        serviceError.classList.add('active');
-        isValid = false;
-    }
-
-    // Validate message
-    if (messageInput.value.trim() === '') {
-        messageInput.classList.add('error');
-        messageError.textContent = 'Message is required';
-        messageError.classList.add('active');
-        isValid = false;
-    }
-
-    return isValid;
-}
-
-submitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-        // Here you would typically send the form data to a backend or service like Formspree
-        // For now, we'll just show a success message and reset the form
-        
-        alert('Thank you for your message! We will contact you shortly.');
-        
-        // Reset form
-        nameInput.value = '';
-        emailInput.value = '';
-        phoneInput.value = '';
-        serviceInput.value = '';
-        messageInput.value = '';
-    }
-});
-
-// Update copyright year
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// Remove error styling when user starts typing
-[nameInput, emailInput, phoneInput, serviceInput, messageInput].forEach(input => {
-    input.addEventListener('input', () => {
-        input.classList.remove('error');
-        const errorId = input.id + '-error';
-        const errorElement = document.getElementById(errorId);
-        if (errorElement) {
-            errorElement.classList.remove('active');
-        }
-    });
-});
-
-// Intersection Observer for Scroll Animations
 const observerOptions = {
-    threshold: 0.05, // Changed from 0.15 - triggers earlier
-    rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
+    threshold: 0.05,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            // Optional: stop observing once revealed
-            observer.unobserve(entry.target); 
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Apply observer to all reveal elements
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
     observer.observe(el);
 });
 
 // ========================================
-// PARTNER MODAL FUNCTIONALITY - DEBUGGED
+// CONTACT FORM SUBMISSION - FORMSPREE
 // ========================================
 
-// Add this RIGHT AFTER the window loads to ensure elements exist
 document.addEventListener('DOMContentLoaded', function() {
     
-    console.log('Modal script loaded'); // Debug message
+    // Contact form elements
+    const contactName = document.getElementById('contact-name');
+    const contactEmail = document.getElementById('contact-email');
+    const contactPhone = document.getElementById('contact-phone');
+    const contactService = document.getElementById('contact-service');
+    const contactMessage = document.getElementById('contact-message');
+    const contactSubmitBtn = document.getElementById('contact-submit-button');
+    
+    // Error elements
+    const contactNameError = document.getElementById('contact-name-error');
+    const contactEmailError = document.getElementById('contact-email-error');
+    const contactPhoneError = document.getElementById('contact-phone-error');
+    const contactServiceError = document.getElementById('contact-service-error');
+    const contactMessageError = document.getElementById('contact-message-error');
+    
+    // Email validation
+    function validateEmailContact(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Validate contact form
+    function validateContactForm() {
+        let isValid = true;
+        
+        // Reset errors
+        [contactName, contactEmail, contactPhone, contactService, contactMessage].forEach(input => {
+            if (input) input.classList.remove('error');
+        });
+        
+        [contactNameError, contactEmailError, contactPhoneError, contactServiceError, contactMessageError].forEach(error => {
+            if (error) error.classList.remove('active');
+        });
+        
+        // Validate name
+        if (contactName && contactName.value.trim() === '') {
+            contactName.classList.add('error');
+            if (contactNameError) {
+                contactNameError.textContent = 'Name is required';
+                contactNameError.classList.add('active');
+            }
+            isValid = false;
+        }
+        
+        // Validate email
+        if (contactEmail && contactEmail.value.trim() === '') {
+            contactEmail.classList.add('error');
+            if (contactEmailError) {
+                contactEmailError.textContent = 'Email is required';
+                contactEmailError.classList.add('active');
+            }
+            isValid = false;
+        } else if (contactEmail && !validateEmailContact(contactEmail.value.trim())) {
+            contactEmail.classList.add('error');
+            if (contactEmailError) {
+                contactEmailError.textContent = 'Email is invalid';
+                contactEmailError.classList.add('active');
+            }
+            isValid = false;
+        }
+        
+        // Validate phone
+        if (contactPhone && contactPhone.value.trim() === '') {
+            contactPhone.classList.add('error');
+            if (contactPhoneError) {
+                contactPhoneError.textContent = 'Phone is required';
+                contactPhoneError.classList.add('active');
+            }
+            isValid = false;
+        }
+        
+        // Validate service
+        if (contactService && contactService.value === '') {
+            contactService.classList.add('error');
+            if (contactServiceError) {
+                contactServiceError.textContent = 'Please select a service';
+                contactServiceError.classList.add('active');
+            }
+            isValid = false;
+        }
+        
+        // Validate message
+        if (contactMessage && contactMessage.value.trim() === '') {
+            contactMessage.classList.add('error');
+            if (contactMessageError) {
+                contactMessageError.textContent = 'Message is required';
+                contactMessageError.classList.add('active');
+            }
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    // Handle form submission
+    if (contactSubmitBtn) {
+        contactSubmitBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            console.log('Contact form submit clicked');
+            
+            if (!validateContactForm()) {
+                console.log('Contact form validation failed');
+                return;
+            }
+            
+            // Prepare form data
+            const formData = {
+                name: contactName.value.trim(),
+                email: contactEmail.value.trim(),
+                phone: contactPhone.value.trim(),
+                service: contactService.value,
+                message: contactMessage.value.trim(),
+                form_type: 'Contact Form'
+            };
+            
+            console.log('Submitting contact form data:', formData);
+            
+            const originalText = contactSubmitBtn.textContent;
+            
+            try {
+                // Disable button and show loading state
+                contactSubmitBtn.disabled = true;
+                contactSubmitBtn.textContent = 'SENDING...';
+                
+                // Submit to Formspree
+                const response = await fetch('https://formspree.io/f/xjgajwgr', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Contact form response status:', response.status);
+                
+                if (response.ok) {
+                    alert('Thank you for your message! We will get back to you shortly.');
+                    
+                    // Reset form
+                    contactName.value = '';
+                    contactEmail.value = '';
+                    contactPhone.value = '';
+                    contactService.value = '';
+                    contactMessage.value = '';
+                    
+                    console.log('Contact form submitted successfully');
+                } else {
+                    const errorData = await response.json();
+                    console.error('Formspree error:', errorData);
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                console.error('Contact form submission error:', error);
+                alert('There was an error sending your message. Please try again or contact us directly at kate@thehandyworx.co.za');
+            } finally {
+                // Re-enable button
+                contactSubmitBtn.disabled = false;
+                contactSubmitBtn.textContent = originalText;
+            }
+        });
+    }
+    
+    // Remove error styling when user starts typing
+    [contactName, contactEmail, contactPhone, contactService, contactMessage].forEach(input => {
+        if (input) {
+            input.addEventListener('input', function() {
+                this.classList.remove('error');
+                const errorId = this.id + '-error';
+                const errorElement = document.getElementById(errorId);
+                if (errorElement) {
+                    errorElement.classList.remove('active');
+                }
+            });
+        }
+    });
+    
+    console.log('Contact form initialized');
+});
+
+// ========================================
+// PARTNER MODAL FUNCTIONALITY
+// ========================================
+
+// Multiple event listeners to ensure compatibility with GitHub Pages
+window.addEventListener('load', initializePartnerModal);
+document.addEventListener('DOMContentLoaded', initializePartnerModal);
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initializePartnerModal();
+}
+
+function initializePartnerModal() {
+    console.log('Initializing partner modal...');
     
     // Modal elements
     const partnerModal = document.getElementById('partner-modal');
@@ -259,10 +361,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalOverlay = document.getElementById('modal-overlay');
     const partnerForm = document.getElementById('partner-form');
     
-    // Debug: Check if elements exist
-    console.log('Modal element:', partnerModal);
-    console.log('Open button:', openModalBtn);
-    console.log('Close button:', closeModalBtn);
+    console.log('Partner Modal:', partnerModal ? 'Found' : 'NOT FOUND');
+    console.log('Open Button:', openModalBtn ? 'Found' : 'NOT FOUND');
 
     // Form inputs
     const partnerContactName = document.getElementById('partner-contact-name');
@@ -278,23 +378,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const partnerPhoneError = document.getElementById('partner-phone-error');
     const partnerDescriptionError = document.getElementById('partner-description-error');
 
-    // Open modal
-    function openModal() {
-        console.log('Opening modal...'); // Debug
+    // Open modal function
+    function openModal(e) {
+        if (e) e.preventDefault();
+        console.log('Opening partner modal...');
+        
         if (partnerModal) {
-            partnerModal.classList.add('active');
+            partnerModal.style.display = 'flex';
+            setTimeout(() => {
+                partnerModal.classList.add('active');
+            }, 10);
             document.body.style.overflow = 'hidden';
-            console.log('Modal opened successfully');
+            console.log('Partner modal opened');
         } else {
-            console.error('Modal element not found!');
+            console.error('Partner modal element not found!');
         }
     }
 
-    // Close modal
-    function closeModal() {
-        console.log('Closing modal...'); // Debug
+    // Close modal function
+    function closeModal(e) {
+        if (e) e.preventDefault();
+        console.log('Closing partner modal...');
+        
         if (partnerModal) {
             partnerModal.classList.remove('active');
+            setTimeout(() => {
+                partnerModal.style.display = 'none';
+            }, 300);
             document.body.style.overflow = '';
             resetPartnerForm();
         }
@@ -305,7 +415,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (partnerForm) {
             partnerForm.reset();
             
-            // Remove error states
             [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
                 if (input) input.classList.remove('error');
             });
@@ -316,34 +425,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners for opening/closing modal
+    // Attach event listeners
     if (openModalBtn) {
-        openModalBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Button clicked!'); // Debug
-            openModal();
-        });
+        openModalBtn.onclick = null;
+        openModalBtn.addEventListener('click', openModal);
+        openModalBtn.onclick = openModal;
+        console.log('Partner modal button listeners attached');
     } else {
-        console.error('Open modal button not found!');
+        console.error('Partner modal open button not found!');
     }
 
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', closeModal);
+        closeModalBtn.onclick = closeModal;
     }
 
     if (modalOverlay) {
         modalOverlay.addEventListener('click', closeModal);
+        modalOverlay.onclick = closeModal;
     }
 
     // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && partnerModal && partnerModal.classList.contains('active')) {
             closeModal();
         }
     });
 
-    // Email validation function (reuse existing one or define here)
-    function validateEmail(email) {
+    // Email validation
+    function validateEmailPartner(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
@@ -352,7 +462,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePartnerForm() {
         let isValid = true;
 
-        // Reset errors
         [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
             if (input) input.classList.remove('error');
         });
@@ -361,7 +470,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) error.classList.remove('active');
         });
 
-        // Validate contact name
         if (partnerContactName && partnerContactName.value.trim() === '') {
             partnerContactName.classList.add('error');
             if (partnerContactNameError) {
@@ -371,7 +479,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Validate business name
         if (partnerBusinessName && partnerBusinessName.value.trim() === '') {
             partnerBusinessName.classList.add('error');
             if (partnerBusinessNameError) {
@@ -381,7 +488,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Validate email
         if (partnerEmail && partnerEmail.value.trim() === '') {
             partnerEmail.classList.add('error');
             if (partnerEmailError) {
@@ -389,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 partnerEmailError.classList.add('active');
             }
             isValid = false;
-        } else if (partnerEmail && !validateEmail(partnerEmail.value.trim())) {
+        } else if (partnerEmail && !validateEmailPartner(partnerEmail.value.trim())) {
             partnerEmail.classList.add('error');
             if (partnerEmailError) {
                 partnerEmailError.textContent = 'Email is invalid';
@@ -398,7 +504,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Validate phone
         if (partnerPhone && partnerPhone.value.trim() === '') {
             partnerPhone.classList.add('error');
             if (partnerPhoneError) {
@@ -408,7 +513,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Validate description
         if (partnerDescription && partnerDescription.value.trim() === '') {
             partnerDescription.classList.add('error');
             if (partnerDescriptionError) {
@@ -423,14 +527,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle form submission
     if (partnerForm) {
-        partnerForm.addEventListener('submit', async (e) => {
+        partnerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            console.log('Partner form submit triggered');
+            
             if (!validatePartnerForm()) {
+                console.log('Partner form validation failed');
                 return;
             }
 
-            // Prepare form data
             const formData = {
                 contact_name: partnerContactName.value.trim(),
                 business_name: partnerBusinessName.value.trim(),
@@ -440,35 +546,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 form_type: 'Partner Application'
             };
 
-            // Get submit button
+            console.log('Submitting partner form data:', formData);
+
             const submitBtn = partnerForm.querySelector('.modal-submit-button');
             const originalText = submitBtn.textContent;
             
             try {
-                // Disable button and show loading state
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'SUBMITTING...';
 
-                // REPLACE THIS URL WITH YOUR ACTUAL FORMSPREE ENDPOINT
-                const response = await fetch('https://formspree.io/f/meerpvqv', {
+                const response = await fetch('https://formspree.io/f/xjgajwgr', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(formData)
                 });
 
+                console.log('Partner form response:', response.status);
+
                 if (response.ok) {
                     alert('Thank you for your application! We will review it and get back to you within 2-3 business days.');
                     closeModal();
+                    console.log('Partner form submitted successfully');
                 } else {
+                    const errorData = await response.json();
+                    console.error('Formspree error:', errorData);
                     throw new Error('Submission failed');
                 }
             } catch (error) {
-                console.error('Form submission error:', error);
+                console.error('Partner form submission error:', error);
                 alert('There was an error submitting your application. Please try again or contact us directly.');
             } finally {
-                // Re-enable button
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }
@@ -478,9 +588,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remove error styling when user starts typing
     [partnerContactName, partnerBusinessName, partnerEmail, partnerPhone, partnerDescription].forEach(input => {
         if (input) {
-            input.addEventListener('input', () => {
-                input.classList.remove('error');
-                const errorId = input.id + '-error';
+            input.addEventListener('input', function() {
+                this.classList.remove('error');
+                const errorId = this.id + '-error';
                 const errorElement = document.getElementById(errorId);
                 if (errorElement) {
                     errorElement.classList.remove('active');
@@ -488,5 +598,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
-}); // End of DOMContentLoaded 
+    
+    console.log('Partner modal initialized');
+}
